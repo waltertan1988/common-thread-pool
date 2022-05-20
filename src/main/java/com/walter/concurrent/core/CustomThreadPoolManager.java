@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.RejectedExecutionHandler;
-import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -28,30 +26,6 @@ public class CustomThreadPoolManager {
             synchronized (CustomThreadPoolManager.class) {
                 if (!THREAD_POOLS.containsKey(key)) {
                     THREAD_POOLS.put(key, new CustomThreadPool(conf));
-                }
-            }
-        }
-        return THREAD_POOLS.get(key);
-    }
-
-    public static CustomThreadPool getThreadPool(ThreadPoolConfigure conf, ThreadFactory factory) {
-        String key = conf.getKey();
-        if (!THREAD_POOLS.containsKey(key)) {
-            synchronized (CustomThreadPoolManager.class) {
-                if (!THREAD_POOLS.containsKey(key)) {
-                    THREAD_POOLS.put(key, new CustomThreadPool(conf, factory));
-                }
-            }
-        }
-        return THREAD_POOLS.get(key);
-    }
-
-    public static CustomThreadPool getThreadPool(ThreadPoolConfigure conf, ThreadFactory factory, RejectedExecutionHandler handler) {
-        String key = conf.getKey();
-        if (!THREAD_POOLS.containsKey(key)) {
-            synchronized (CustomThreadPoolManager.class) {
-                if (!THREAD_POOLS.containsKey(key)) {
-                    THREAD_POOLS.put(key, new CustomThreadPool(conf, factory, handler));
                 }
             }
         }

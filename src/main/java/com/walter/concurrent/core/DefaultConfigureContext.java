@@ -2,6 +2,7 @@ package com.walter.concurrent.core;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ThreadFactory;
 
 /**
  * @author walter.tan
@@ -32,6 +33,10 @@ public class DefaultConfigureContext implements ConfigureContext {
      * @return
      */
     private ThreadPoolConfigure defaultThreadPoolConfigure(){
-        return new ThreadPoolConfigure(DEFAULT_THREAD_POOL_KEY, ThreadQueueType.SynchronousQueue.getValue(), 10, 100, 0, 0, null, 0, 10);
+        ThreadFactory threadFactory = new LoggingThreadFactory("ThreadPoolManager-worker");
+        return new ThreadPoolConfigure(DEFAULT_THREAD_POOL_KEY,
+                ThreadQueueType.SynchronousQueue.getValue(), 10, 100,
+                0, 0, null, 0, 10,
+                threadFactory, null);
     }
 }

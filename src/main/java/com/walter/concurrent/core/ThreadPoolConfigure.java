@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.concurrent.RejectedExecutionHandler;
+import java.util.concurrent.ThreadFactory;
+
 /**
  * @author walter.tan
  */
@@ -40,4 +43,8 @@ public class ThreadPoolConfigure {
      * 等待队列超过此值，则打印队列长度
      */
     private int showThreadQueueSize;
+
+    private ThreadFactory threadFactory;
+
+    private RejectedExecutionHandler rejectedExecutionHandler;
 }

@@ -19,13 +19,13 @@ public class ThreadPoolFactory {
     public CustomThreadPool getDefaultThreadPool() {
         //使用线程池工具,使用默自定义线程池类型
         ThreadPoolConfigure conf = configureContext.getDefaultThreadPoolConfig();
-        return CustomThreadPoolManager.getThreadPool(conf, new LoggingThreadFactory("ThreadPoolManager-worker"), null);
+        return CustomThreadPoolManager.getThreadPool(conf);
     }
 
     public CustomThreadPool getThreadPool(String key) {
         //使用线程池工具,使用自定义线程池类型
         ThreadPoolConfigure conf = configureContext.getThreadPoolConfig(key);
-        return CustomThreadPoolManager.getThreadPool(conf, new LoggingThreadFactory("ThreadPoolManager-worker"),null);
+        return CustomThreadPoolManager.getThreadPool(conf);
     }
 
     public void shutdownAll(long timeout, TimeUnit timeUnit) {

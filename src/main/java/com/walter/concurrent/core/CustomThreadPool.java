@@ -27,11 +27,7 @@ public class CustomThreadPool {
     private ScheduledExecutorService scdTaskPool;
 
     public CustomThreadPool(ThreadPoolConfigure conf) {
-        this(conf, null, null);
-    }
-
-    public CustomThreadPool(ThreadPoolConfigure conf, ThreadFactory factory) {
-        this(conf, factory, null);
+        this(conf, conf.getThreadFactory(), conf.getRejectedExecutionHandler());
     }
 
     public CustomThreadPool(ThreadPoolConfigure conf, ThreadFactory factory, RejectedExecutionHandler handler) {
@@ -84,10 +80,11 @@ public class CustomThreadPool {
             this.taskPool = new ThreadPoolExecutor(this.corePoolSize, this.maxPoolSize, this.keepAliveTime, TimeUnit.SECONDS, this.queue, factory, handler);
         } else if (null != factory) {
             this.taskPool = new ThreadPoolExecutor(this.corePoolSize, this.maxPoolSize, this.keepAliveTime, TimeUnit.SECONDS, this.queue, factory);
+        } else if(null != handler){
+            this.taskPool = new ThreadPoolExecutor(this.corePoolSize, this.maxPoolSize, this.keepAliveTime, TimeUnit.SECONDS, this.queue, handler);
         } else {
             this.taskPool = new ThreadPoolExecutor(this.corePoolSize, this.maxPoolSize, this.keepAliveTime, TimeUnit.SECONDS, this.queue);
         }
-
     }
 
     public Future<?> execute(Runnable task) {
