@@ -1,7 +1,7 @@
 package com.walter.concurrent.core;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.concurrent.*;
@@ -41,11 +41,11 @@ public class CustomThreadPool {
         this.initQueueSize = 100;
         this.showThreadQueueSize = 10;
 
-        this.key = StringUtils.isBlank(conf.getKey()) ? this.key : conf.getKey();
+        this.key = !StringUtils.hasText(conf.getKey()) ? this.key : conf.getKey();
         this.timeout = conf.getTimeout() == 0L ? this.timeout : conf.getTimeout();
         this.maxPoolSize = conf.getMaxPoolSize() == 0 ? this.maxPoolSize : conf.getMaxPoolSize();
         this.corePoolSize = conf.getCorePoolSize() == 0 ? this.corePoolSize : conf.getCorePoolSize();
-        this.type = StringUtils.isBlank(conf.getType()) ? this.type : conf.getType();
+        this.type = !StringUtils.hasText(conf.getType()) ? this.type : conf.getType();
         this.keepAliveTime = conf.getKeepAliveTime() == 0L ? this.keepAliveTime : conf.getKeepAliveTime();
         this.fair = conf.getFair() == null ? this.fair : conf.getFair();
         this.initQueueSize = conf.getInitQueueSize() == 0 ? this.initQueueSize : conf.getInitQueueSize();

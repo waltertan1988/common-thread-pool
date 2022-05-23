@@ -1,7 +1,6 @@
 package com.walter.concurrent.core;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,7 @@ public class CustomThreadPoolManager {
 
     public static void shutdownAll(long timeout, TimeUnit timeUnit) {
         List<CustomThreadPool> customThreadPoolList = new ArrayList<>(THREAD_POOLS.values());
-        if (CollectionUtils.isNotEmpty(customThreadPoolList)) {
+        if (!customThreadPoolList.isEmpty()) {
             for (CustomThreadPool customThreadPool : customThreadPoolList) {
                 log.info("thread pool is closing: {}", customThreadPool.getKey());
                 customThreadPool.shutdown();
